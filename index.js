@@ -12,11 +12,26 @@ function textr(options) {
   return transform
 
   function transform(tree) {
-    visit(tree, 'text', visitor)
+    visit(tree, 'text', visitorText)
+    visit(tree, 'link', visitorLink)
+    visit(tree, 'image', visitorImage)
   }
 
-  function visitor(node) {
+  function visitorText(node) {
     node.value = tf(node.value)
+  }
+  function visitorLink(node) {
+    if (node.title !== null) {
+      node.title = tf(node.title)
+    }
+  }
+  function visitorImage(node) {
+    if (node.title !== null) {
+      node.title = tf(node.title)
+    }
+    if (node.alt !== null) {
+      node.alt = tf(node.alt)
+    }
   }
 }
 
